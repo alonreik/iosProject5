@@ -10,19 +10,19 @@ import UIKit
 class ImageGalleryCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
+    
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var widthConstraint: NSLayoutConstraint!
+    
+    var aspectRatio: CGFloat = 0.0
+    
     var imageURL: URL? {
-        
         didSet {
             imageView.image = nil
             fetchImage()
-            
-            // A view that appears on the screen has a window variable
-            if window != nil {
-                // the condition above means: "Am I on screen?"
-                fetchImage()
-            }
         }
     }
     
@@ -32,13 +32,15 @@ class ImageGalleryCollectionViewCell: UICollectionViewCell {
         }
         set {
             imageView.image = newValue
-            imageView.sizeThatFits(bounds.size)
+            if let image = imageView.image {
+                aspectRatio = image.size.width / image.size.height
+            }
             spinner?.stopAnimating()
         }
     }
 
+    //
     private func fetchImage() {
-        
         if let url = imageURL {
             spinner.startAnimating()
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
