@@ -10,7 +10,7 @@ import UIKit
 // todo - notice that estimated size in collection view is none
 
 /// UICollectionViewController implements the UICollectionViewDelegate & UICollectionViewDataSource protocols.
-class ImageGalleryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class ImageGalleryCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     /* ---------
      Constants
@@ -24,26 +24,6 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDe
         Image(url: "https://i.pinimg.com/originals/03/7e/79/037e79b2fb52127537be79110891ae3f.png"),
         Image(url: "https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg"),
         Image(url: "https://static01.nyt.com/images/2020/06/12/sports/12nba-return/merlin_168451203_493eb598-93f6-47dc-9140-c8bd94b620da-superJumbo.jpg?quality=90&auto=webp"),
-        Image(url: "https://i.pinimg.com/originals/03/7e/79/037e79b2fb52127537be79110891ae3f.png"),
-        Image(url: "https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg"),
-        Image(url: "https://static01.nyt.com/images/2020/06/12/sports/12nba-return/merlin_168451203_493eb598-93f6-47dc-9140-c8bd94b620da-superJumbo.jpg?quality=90&auto=webp"),
-        Image(url: "https://i.pinimg.com/originals/03/7e/79/037e79b2fb52127537be79110891ae3f.png"),
-        Image(url: "https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg"),
-        Image(url: "https://static01.nyt.com/images/2020/06/12/sports/12nba-return/merlin_168451203_493eb598-93f6-47dc-9140-c8bd94b620da-superJumbo.jpg?quality=90&auto=webp"),
-        Image(url: "https://i.pinimg.com/originals/03/7e/79/037e79b2fb52127537be79110891ae3f.png"),
-        Image(url: "https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg"),
-        Image(url: "https://swordstoday.ie/wp-content/uploads/2021/03/getobject-47-e1575408347332-770x462.jpeg"),
-        Image(url: "https://i.pinimg.com/originals/03/7e/79/037e79b2fb52127537be79110891ae3f.png"),
-        Image(url: "https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg"),
-        Image(url: "https://static01.nyt.com/images/2020/06/12/sports/12nba-return/merlin_168451203_493eb598-93f6-47dc-9140-c8bd94b620da-superJumbo.jpg?quality=90&auto=webp"),
-        Image(url: "https://i.pinimg.com/originals/03/7e/79/037e79b2fb52127537be79110891ae3f.png"),
-        Image(url: "https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg"),
-        Image(url: "https://static01.nyt.com/images/2020/06/12/sports/12nba-return/merlin_168451203_493eb598-93f6-47dc-9140-c8bd94b620da-superJumbo.jpg?quality=90&auto=webp"),
-        Image(url: "https://i.pinimg.com/originals/03/7e/79/037e79b2fb52127537be79110891ae3f.png"),
-        Image(url: "https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg"),
-        Image(url: "https://static01.nyt.com/images/2020/06/12/sports/12nba-return/merlin_168451203_493eb598-93f6-47dc-9140-c8bd94b620da-superJumbo.jpg?quality=90&auto=webp"),
-        Image(url: "https://i.pinimg.com/originals/03/7e/79/037e79b2fb52127537be79110891ae3f.png"),
-        Image(url: "https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg"),
         Image(url: "https://swordstoday.ie/wp-content/uploads/2021/03/getobject-47-e1575408347332-770x462.jpeg"),
     ]
     

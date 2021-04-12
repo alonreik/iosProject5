@@ -11,7 +11,7 @@
         <!--Root View Controller-->
         <scene sceneID="Zx8-0L-p5W">
             <objects>
-                <tableViewController clearsSelectionOnViewWillAppear="NO" id="Vvg-z7-n8m" sceneMemberID="viewController">
+                <tableViewController clearsSelectionOnViewWillAppear="NO" id="Vvg-z7-n8m" customClass="ImageGalleryTableViewController" customModule="ImageGallery" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="WOR-GQ-MaO">
                         <rect key="frame" x="0.0" y="0.0" width="420" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -66,10 +66,10 @@
             </objects>
             <point key="canvasLocation" x="-1843" y="395"/>
         </scene>
-        <!--Image Gallery View Controller-->
+        <!--Image Gallery Collection View Controller-->
         <scene sceneID="VUw-ui-gC7">
             <objects>
-                <collectionViewController id="RgE-UP-OMv" customClass="ImageGalleryViewController" customModule="ImageGallery" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="RgE-UP-OMv" customClass="ImageGalleryCollectionViewController" customModule="ImageGallery" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Y4a-p4-guS">
                         <rect key="frame" x="0.0" y="0.0" width="1045.5" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
