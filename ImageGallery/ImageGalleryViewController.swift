@@ -19,7 +19,7 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDe
     // todo
     private let reusableCellIDForImages = "ImageCell"
     
-    // The Model: An array of urls (of string of urls that lead to images). (first is an emoji)
+    // The Model: An array of urls (of string of urls that lead to images).
     let imagesModelArray = [
         Image(url: "https://i.pinimg.com/originals/03/7e/79/037e79b2fb52127537be79110891ae3f.png"),
         Image(url: "https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg"),
@@ -71,28 +71,34 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDe
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Get the cell at the given indexPath
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reusableCellIDForImages, for: indexPath)
+        
         // Downcast the cell item to a derived class (derived from CollectionViewCell)
         if let imageCell = cell as? ImageGalleryCollectionViewCell {
+            
+            // get the URL (of an image) from the model
             if let url = imagesModelArray[indexPath.item].url {
+                
+                // Get a global "background" queue/thread to perform non UI tasks (getting data from url):
                 DispatchQueue.global(qos: .userInitiated).async {
                     let urlContents = try? Data(contentsOf: url)
-                    // Get the main queue to perform a UI task:
+                    
+                    // Get the main queue to perform UI tasks (using activity spinner and setting an image):
                     DispatchQueue.main.async {
                         imageCell.toggleActivitySpinner()
-                        // the second condition below makes sure that the url is the one I asked for
-                        // (because the url var may be changed during context switches between the main and other threads\queues)
                         if let imageData = urlContents {
-                            imageCell.imageView.image = UIImage(data: imageData)
-                            let height = imageCell.imageView.image?.size.height ?? 1.0
-                            let width = imageCell.imageView.image?.size.width ?? 2.0
-                            self.imagesModelArray[indexPath.item].aspectRatio = Double(width / height)
+                            imageCell.imageView.image = UIImage(data: imageData) // update the view according to the model
+                            guard let height = imageCell.imageView.image?.size.height, let width = imageCell.imageView.image?.size.width else {
+                                return
+                            }
+                            
+                            self.imagesModelArray[indexPath.item].aspectRatio = Double(width / height) // updates the model according to the view
                             imageCell.toggleActivitySpinner()
                         }
                     }
                 }
             }
             return imageCell
-        } else {
+        } else { //if the downcasting failed, returns a generic collection view cell.
             return cell
         }
     }
@@ -107,13 +113,6 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDe
         } else {
             return CGSize(width: cellWidth, height: cellWidth)
         }
-                
-//        return CGSize(width: cellWidth, height: CGFloat(imagesModelArray[indexPath.item].aspectRatio) * cellWidth)
-//        if let imageCell = collectionView.cellForItem(at: indexPath) as? ImageGalleryCollectionViewCell {
-//            return CGSize(width: cellWidth, height: imageCell.aspectRatio * cellWidth)
-//        } else {
-//            return CGSize(width: 50, height: 50)
-//        }
     }
     
     /* -----------------------------------

@@ -10,7 +10,6 @@ import Foundation
 class Image
 {
     var url: URL?
-    var imageData: Data?
     var aspectRatio: Double = 0
     
     init(url: String) {
@@ -18,7 +17,4 @@ class Image
             self.url = validURL
         }
     }
-    
-    
-    
 }
