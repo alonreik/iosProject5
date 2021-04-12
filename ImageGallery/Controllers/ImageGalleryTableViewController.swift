@@ -9,15 +9,17 @@ import UIKit
 
 class ImageGalleryTableViewController: UITableViewController {
 
-    // the model:
-    var imageGalleryNames = ["NBA", "Euroleague"]
+    // the model (for this MVC):
+    let imageGalleryNames = ["NBA", "Euroleague"]
     
-    private var models = [[
+    // todo - design wise, is it reasonable to include the model of another MVC (the Image class) in the controller of this MVC?.
+    private let models = [
+                [   // array of image instances (images of NBA players)
                     Image(url: "https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg"),
                     Image(url: "https://static01.nyt.com/images/2020/06/12/sports/12nba-return/merlin_168451203_493eb598-93f6-47dc-9140-c8bd94b620da-superJumbo.jpg?quality=90&auto=webp"),
                     Image(url: "https://swordstoday.ie/wp-content/uploads/2021/03/getobject-47-e1575408347332-770x462.jpeg"),
                 ],
-                [
+                [   // array of image instances (images of euroleague players)
                     Image(url: "https://static.timesofisrael.com/www/uploads/2019/07/AP_18337090034812-e1563112655347.jpg"),
                     Image(url: "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/996.png&w=350&h=254"),
                     Image(url: "https://basket.co.il/pics/2019/2020/14ob21.jpg"),
@@ -109,7 +111,10 @@ class ImageGalleryTableViewController: UITableViewController {
         if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell){
             if segue.identifier == "Choose Gallery" {
                 if let destination = segue.destination as? ImageGalleryCollectionViewController {
+                    // set the image gallery to be the appropiate array of Image instances.
                     destination.imageGallery = models[indexPath.row]
+                    // set the title of the segue.destination to be name of the picked gallery.
+                    destination.title = imageGalleryNames[indexPath.row]
                 }
             }
         }

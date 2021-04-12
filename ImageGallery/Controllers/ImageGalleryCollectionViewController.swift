@@ -10,6 +10,7 @@ import UIKit
 // todo - notice that estimated size in collection view is none
 
 /// UICollectionViewController implements the UICollectionViewDelegate & UICollectionViewDataSource protocols.
+// This controller is controling a view that is embedded in a split view (as the detail).
 class ImageGalleryCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     /* ---------
@@ -19,32 +20,30 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
     // todo
     private let reusableCellIDForImages = "ImageCell"
     
-    // The Model: An array of Image instances (Image is a custom class for this ex).
+    // The Model (for this MVC): An array of Image instances (Image is a custom class for this ex).
+    // The array is set before performing segues from the masterview of the splitView to the detail
+    // (which is the view that this controller controls).
     var imageGallery: [Image] = []
-    
-//        Image(url: "https://i.pinimg.com/originals/03/7e/79/037e79b2fb52127537be79110891ae3f.png"),
-//        Image(url: "https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg"),
-//        Image(url: "https://static01.nyt.com/images/2020/06/12/sports/12nba-return/merlin_168451203_493eb598-93f6-47dc-9140-c8bd94b620da-superJumbo.jpg?quality=90&auto=webp"),
-//        Image(url: "https://swordstoday.ie/wp-content/uploads/2021/03/getobject-47-e1575408347332-770x462.jpeg"),
-//    ]
     
     /* ---------
      Properties
     ----------- */
     
+    //
     private var maximalWidth: CGFloat {
         // todo - arbitrary maximal width
         return collectionView.frame.size.width - 10
     }
-    
+    //
     private var minimalWidth: CGFloat {
         // todo - arbitrary minimal width
         return collectionView.frame.size.width / 10
     }
     
+    //
     private lazy var cellWidth: CGFloat = 100.0
     
-    // The collectionView's flow layout.
+    // The collectionView's flow layout. This var is used to trigger a layout update
     private var flowLayout: UICollectionViewFlowLayout? {
         return collectionView.collectionViewLayout as? UICollectionViewFlowLayout
     }
