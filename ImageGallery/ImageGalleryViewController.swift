@@ -140,7 +140,8 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDe
         switch recognizer.state {
         case .changed, .ended:
             let scaledWidth = cellWidth * recognizer.scale
-            if scaledWidth <= maximalWidth && scaledWidth >= minimalWidth { // if scaled width is within bounds
+            // set a new cellWidth size only if the scaled width is within bounds:
+            if scaledWidth <= maximalWidth && scaledWidth >= minimalWidth {
                 cellWidth = scaledWidth
             }
             flowLayout?.invalidateLayout() // Triggers a layout update
