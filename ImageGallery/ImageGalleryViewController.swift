@@ -47,16 +47,20 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDe
         Image(url: "https://swordstoday.ie/wp-content/uploads/2021/03/getobject-47-e1575408347332-770x462.jpeg"),
     ]
     
+    /* ---------
+     Properties
+    ----------- */
+    
     private var maximalWidth: CGFloat {
-        return collectionView.frame.size.width
+        // todo - arbitrary maximal width
+        return collectionView.frame.size.width - 10
     }
     
     private var minimalWidth: CGFloat {
         // todo - arbitrary minimal width
-        return collectionView.frame.size.width / 2
+        return collectionView.frame.size.width / 10
     }
     
-    //
     private lazy var cellWidth: CGFloat = 100.0
     
     // The collectionView's flow layout.
@@ -121,8 +125,29 @@ class ImageGalleryViewController: UICollectionViewController, UICollectionViewDe
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        // Add a pinch gesture recognizer to the collection view
+        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(pinchHandler(recognizer:)))
+        collectionView.addGestureRecognizer(pinchRecognizer)
     }
-
+    
+    /* -------------
+     Gestures Handlers
+    ----------------- */
+    
+    // This function is called every time a user pinches the screen
+    @objc private func pinchHandler(recognizer: UIPinchGestureRecognizer) {
+        switch recognizer.state {
+        case .changed, .ended:
+            let scaledWidth = cellWidth * recognizer.scale
+            if scaledWidth <= maximalWidth && scaledWidth >= minimalWidth { // if scaled width is within bounds
+                cellWidth = scaledWidth
+            }
+            flowLayout?.invalidateLayout() // Triggers a layout update
+            recognizer.scale = 1.0
+        default:
+            break
+        }
+    }
 }
 
