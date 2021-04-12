@@ -10,7 +10,9 @@ import UIKit
 class ImageGalleryTableViewController: UITableViewController {
 
     // the model (for this MVC):
-    let imageGalleryNames = ["NBA", "Euroleague"]
+    var galleryNames = ["NBA", "Euroleague"]
+    
+    var deletedGalleries: [String] = []
     
     // todo - design wise, is it reasonable to include the model of another MVC (the Image class) in the controller of this MVC?.
     private let models = [
@@ -26,13 +28,8 @@ class ImageGalleryTableViewController: UITableViewController {
                 ]
     ]
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       
-        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -44,14 +41,14 @@ class ImageGalleryTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // Section 0 is the galleries' names
-        // Section 1 is the recently deleted galleries.
-        return 1
+        // There are 2 sections: one for the gallery names, and one for the deleted galleries names.
+        // If no gallery is currently in the deleted galleries section, then only 1 section is displayed.
+        return (deletedGalleries.count) == 0 ? 1: 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return imageGalleryNames.count
+            return galleryNames.count
         } else if section == 1 {
             return 1
         }
@@ -62,9 +59,7 @@ class ImageGalleryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GalleryCell", for: indexPath)
-        
-        cell.textLabel?.text = imageGalleryNames[indexPath.row]
-        
+        cell.textLabel?.text = galleryNames[indexPath.row]
         return cell
     }
     
@@ -72,31 +67,58 @@ class ImageGalleryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "Choose Gallery", sender: tableView.cellForRow(at: indexPath))
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    //
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return (section == 0) ? "Gallery Names": "Recently Deleted"
     }
-    */
 
-    /*
+//    // Override to support conditional editing of the table view.
+//    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        // Return false if you do not want the specified item to be editable.
+//        return true
+//    }
+
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            if indexPath.section == 0 {
+                // move the gallery name to deleted
+//                deletedGalleries.append(galleryNames[indexPath.row])
+                let galleryName = galleryNames[indexPath.row]
+                
+                galleryNames.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+//                tableView.reloadData()
+
+//                tableView.reloadSections([0,1], with: .automatic)
+                
+                deletedGalleries.append(galleryName)
+                tableView.insertRows(at: [indexPath], with: .automatic)
+//                tableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
+//                tableView.reloadSections([0,1], with: .automatic)
+
+                
+            } else if indexPath.section == 1 {
+                
+                
+                
+                
+                
+                deletedGalleries.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+     
     }
     */
 
@@ -119,7 +141,7 @@ class ImageGalleryTableViewController: UITableViewController {
                     // set the image gallery to be the appropiate array of Image instances.
                     destination.imageGallery = models[indexPath.row]
                     // set the title of the segue.destination to be name of the picked gallery.
-                    destination.title = imageGalleryNames[indexPath.row]
+                    destination.title = galleryNames[indexPath.row]
                 }
             }
         }
