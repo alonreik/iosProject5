@@ -9,14 +9,16 @@ import Foundation
 
 class Image
 {
-    var imageURL: URL?
+    var url: URL?
+    var imageData: Data?
     var aspectRatio: Double = 0
     
     init(url: String) {
-        if let validImageURL = URL(string: url) {
-            imageURL = validImageURL
-        } else {
-            imageURL = nil
+        if let validURL = URL(string: url) {
+            self.url = validURL
         }
     }
+    
+    
+    
 }
