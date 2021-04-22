@@ -73,7 +73,10 @@ class ImageGalleryTableViewController: UITableViewController {
     
     // What happens when somebody selects a row? preforms segue.
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "Choose Gallery", sender: tableView.cellForRow(at: indexPath))
+        // Pressing a tableView row will segue to the gallery only if the gallery-name is not in the deleted section.
+        if indexPath.section == 0 {
+            performSegue(withIdentifier: "Choose Gallery", sender: tableView.cellForRow(at: indexPath))
+        }
     }
     
     //
