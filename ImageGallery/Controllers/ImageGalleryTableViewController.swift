@@ -40,30 +40,38 @@ class ImageGalleryTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
+    // How many sections in the tableview?
     override func numberOfSections(in tableView: UITableView) -> Int {
         // There are 2 sections: one for the gallery names, and one for the deleted galleries names.
         // If no gallery is currently in the deleted galleries section, then only 1 section is displayed.
-        return (deletedGalleries.count) == 0 ? 1: 2
+//        if deletedGalleries.count == 0 && galleryNames.count == 0 {
+//            return 0
+//        } else if deletedGalleries.count == 0 || galleryNames.count == 0 {
+//            return 1
+//        } else {
+//            return 2
+//        }
+        return 2
     }
-
+    
+    // How many rows per section in the tableview?
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return galleryNames.count
-        } else if section == 1 {
-            return 1
+        } else { // if section == 1
+            return deletedGalleries.count
         }
-        // todo - shouldnt be reached
-        return 0
     }
 
-    
+    // What do display in each row\cell of the table view?
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "GalleryCell", for: indexPath)
-        cell.textLabel?.text = galleryNames[indexPath.row]
+        cell.textLabel?.text = (indexPath.section == 0) ? galleryNames[indexPath.row] : deletedGalleries[indexPath.row]
         return cell
     }
     
-    //
+    // What happens when somebody selects a row? preforms segue.
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "Choose Gallery", sender: tableView.cellForRow(at: indexPath))
     }
@@ -83,32 +91,18 @@ class ImageGalleryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if indexPath.section == 0 {
-                // move the gallery name to deleted
-//                deletedGalleries.append(galleryNames[indexPath.row])
                 let galleryName = galleryNames[indexPath.row]
-                
+                // remove
                 galleryNames.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .automatic)
-//                tableView.reloadData()
 
-//                tableView.reloadSections([0,1], with: .automatic)
-                
+                // move the gallery name to deleted
                 deletedGalleries.append(galleryName)
-                tableView.insertRows(at: [indexPath], with: .automatic)
-//                tableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
-//                tableView.reloadSections([0,1], with: .automatic)
-
-                
             } else if indexPath.section == 1 {
-                
-                
-                
-                
-                
                 deletedGalleries.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
-            
+            tableView.reloadData()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
