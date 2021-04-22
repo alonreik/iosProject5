@@ -61,11 +61,11 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
             
             // get the URL (of an image) from the model
             if let url = imageGallery[indexPath.item].url {
+                // todo - move the background assignment to the Image model. 
                 
                 // Get a global "background" queue/thread to perform non UI tasks (getting data from url):
                 DispatchQueue.global(qos: .userInitiated).async {
                     let urlContents = try? Data(contentsOf: url)
-                    
                     // Get the main queue to perform UI tasks (using activity spinner and setting an image):
                     DispatchQueue.main.async {
                         imageCell.toggleActivitySpinner()
@@ -74,7 +74,6 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
                             guard let height = imageCell.imageView.image?.size.height, let width = imageCell.imageView.image?.size.width else {
                                 return
                             }
-                            
                             self.imageGallery[indexPath.item].aspectRatio = Double(width / height) // updates the model according to the view
                             imageCell.toggleActivitySpinner()
                         }

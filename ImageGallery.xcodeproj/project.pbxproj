@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9402D6702631B04F00CBCA41 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9402D66F2631B04F00CBCA41 /* ImageViewController.swift */; };
 		947339FD261F15B3001F735E /* Utillities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947339FC261F15B3001F735E /* Utillities.swift */; };
 		9489721E2624636900E9B616 /* ImageGalleryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9489721D2624636900E9B616 /* ImageGalleryTableViewCell.swift */; };
 		949228F726233E1A00D909DF /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949228F626233E1A00D909DF /* Image.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9402D66F2631B04F00CBCA41 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		947339FC261F15B3001F735E /* Utillities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utillities.swift; sourceTree = "<group>"; };
 		9489721D2624636900E9B616 /* ImageGalleryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryTableViewCell.swift; sourceTree = "<group>"; };
 		949228F626233E1A00D909DF /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 		949228FE2624363700D909DF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9402D66F2631B04F00CBCA41 /* ImageViewController.swift */,
 				949228FB2624362C00D909DF /* ImageGalleryTableViewController.swift */,
 				94959E34261DEA6500C3C4C4 /* ImageGalleryCollectionViewController.swift */,
 			);
@@ -185,6 +188,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9489721E2624636900E9B616 /* ImageGalleryTableViewCell.swift in Sources */,
+				9402D6702631B04F00CBCA41 /* ImageViewController.swift in Sources */,
 				94959E35261DEA6500C3C4C4 /* ImageGalleryCollectionViewController.swift in Sources */,
 				949228F726233E1A00D909DF /* Image.swift in Sources */,
 				949228FC2624362C00D909DF /* ImageGalleryTableViewController.swift in Sources */,

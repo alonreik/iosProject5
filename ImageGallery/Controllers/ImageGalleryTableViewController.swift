@@ -7,6 +7,8 @@
 
 import UIKit
 
+// todo - what do we do when we try to fetch an image but fail?
+
 class ImageGalleryTableViewController: UITableViewController {
 
     // the model (for this MVC):
@@ -67,8 +69,12 @@ class ImageGalleryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "GalleryCell", for: indexPath)
-        cell.textLabel?.text = (indexPath.section == 0) ? galleryNames[indexPath.row] : deletedGalleries[indexPath.row]
-        return cell
+        if let galleryTableCell = cell as? ImageGalleryTableViewCell {
+            galleryTableCell.textLabel?.text = (indexPath.section == 0) ? galleryNames[indexPath.row] : deletedGalleries[indexPath.row]
+            return galleryTableCell
+        } else { //if the downcasting failed, returns a generic collection view cell.
+            return cell
+        }
     }
     
     // What happens when somebody selects a row? preforms segue.

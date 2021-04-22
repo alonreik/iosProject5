@@ -7,32 +7,24 @@
 
 import UIKit
 
-class ImageGalleryTableViewCell: UITableViewCell {
+class ImageGalleryTableViewCell: UITableViewCell, UITextFieldDelegate {
 
-    var inRecentlyDeleted = false
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-//        // define a swipe-left recognizer and add it to any ImageGalleryTableViewCell's gesture recognizers.
-//        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeHandler(recognizer:)))
-//        swipeRecognizer.direction = [.left]
-//        addGestureRecognizer(swipeRecognizer)
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    @IBOutlet weak var galleryName: UITextField! {
+        didSet {
+            galleryName.delegate = self
+        }
     }
     
-//    @objc private func swipeHandler(recognizer: UISwipeGestureRecognizer){
-//        switch recognizer.direction {
-//        case .left:
-//            inRecentlyDeleted = true
-//            print("swiped left")
-//        default:
-//            break
-//        }
-//    }
+    var resignationHandler: (() -> Void)?
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        resignationHandler?()
+        // todo
+    }
 }
