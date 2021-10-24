@@ -57,7 +57,7 @@ class ImageGalleryTableViewController: UITableViewController {
     
     // How many rows per section in the tableview?
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        if galleryNames.count > 0 && section == 0 {
             return self.galleryNames.count
         } else { // if section == 1
             return deletedGalleries.count
@@ -68,7 +68,7 @@ class ImageGalleryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GalleryCell", for: indexPath)
         if let galleryTableCell = cell as? ImageGalleryTableViewCell {
-            galleryTableCell.textLabel?.text = (indexPath.section == 0) ? galleryNames[indexPath.row] : deletedGalleries[indexPath.row]
+            galleryTableCell.textLabel?.text = (galleryNames.count > 0 && indexPath.section == 0) ? galleryNames[indexPath.row] : deletedGalleries[indexPath.row]
             return galleryTableCell
         } else { //if the downcasting failed, returns a generic collection view cell.
             return cell
@@ -78,14 +78,18 @@ class ImageGalleryTableViewController: UITableViewController {
     // What happens when somebody selects a row? preforms segue.
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Pressing a tableView row will segue to the gallery only if the gallery-name is not in the deleted section.
-        if indexPath.section == 0 {
+        if galleryNames.count > 0 && indexPath.section == 0 {
             performSegue(withIdentifier: "Choose Gallery", sender: tableView.cellForRow(at: indexPath))
         }
     }
     
     //
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return (section == 0) ? "Gallery Names": "Recently Deleted"
+        if galleryNames.count > 0 && section == 0 {
+            return "Gallery Names"
+        } else {
+            return "Recently Deleted"
+        }
     }
 
 //    // Override to support conditional editing of the table view.
@@ -97,8 +101,7 @@ class ImageGalleryTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print("trying to delete")
-            if indexPath.section == 0 {
+            if galleryNames.count > 0 && indexPath.section == 0 {
                 let galleryName = galleryNames[indexPath.row]
                 galleryNames.remove(at: indexPath.row)
                 deletedGalleries.append(galleryName)
@@ -128,8 +131,7 @@ class ImageGalleryTableViewController: UITableViewController {
     */
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        guard indexPath.section == 1 else {
+        if (galleryNames.count > 0 && indexPath.section == 0) {
             return nil
         }
         var actions: [UIContextualAction] = []
@@ -162,10 +164,4 @@ class ImageGalleryTableViewController: UITableViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    
-    //
-    private func updateViewFromModel() {
-        
-    }
-    
 }
