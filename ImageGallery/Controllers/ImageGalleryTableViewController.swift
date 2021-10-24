@@ -105,7 +105,7 @@ class ImageGalleryTableViewController: UITableViewController {
                 let galleryName = galleryNames[indexPath.row]
                 galleryNames.remove(at: indexPath.row)
                 deletedGalleries.append(galleryName)
-            } else if indexPath.section == 1 {
+            } else {
                 deletedGalleries.remove(at: indexPath.row)
             }
             tableView.reloadData()
