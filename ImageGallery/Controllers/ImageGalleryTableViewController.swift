@@ -15,7 +15,7 @@ class ImageGalleryTableViewController: UITableViewController {
     var galleryNames = ["NBA", "Euroleague"]
     var deletedGalleries: [String] = []
     
-    let URLs = ["https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg", "https://static01.nyt.com/images/2020/06/12/sports/12nba-return/merlin_168451203_493eb598-93f6-47dc-9140-c8bd94b620da-superJumbo.jpg?quality=90&auto=webp", "https://swordstoday.ie/wp-content/uploads/2021/03/getobject-47-e1575408347332-770x462.jpeg",
+    private let URLs = ["https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg", "https://static01.nyt.com/images/2020/06/12/sports/12nba-return/merlin_168451203_493eb598-93f6-47dc-9140-c8bd94b620da-superJumbo.jpg?quality=90&auto=webp", "https://swordstoday.ie/wp-content/uploads/2021/03/getobject-47-e1575408347332-770x462.jpeg",
     "https://static.timesofisrael.com/www/uploads/2019/07/AP_18337090034812-e1563112655347.jpg",
     "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/996.png&w=350&h=254",
     "https://basket.co.il/pics/2019/2020/14ob21.jpg"
@@ -45,14 +45,14 @@ class ImageGalleryTableViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         // There are 2 sections: one for the gallery names, and one for the deleted galleries names.
         // If no gallery is currently in the deleted galleries section, then only 1 section is displayed.
-//        if deletedGalleries.count == 0 && galleryNames.count == 0 {
-//            return 0
-//        } else if deletedGalleries.count == 0 || galleryNames.count == 0 {
-//            return 1
-//        } else {
-//            return 2
-//        }
-        return 2
+        if deletedGalleries.count == 0 && galleryNames.count == 0 {
+            return 0
+        } else if deletedGalleries.count == 0 || galleryNames.count == 0 {
+            return 1
+        } else {
+            return 2
+        }
+//        return 2
     }
     
     // How many rows per section in the tableview?
@@ -97,17 +97,13 @@ class ImageGalleryTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            print("trying to delete")
             if indexPath.section == 0 {
                 let galleryName = galleryNames[indexPath.row]
-                // remove
                 galleryNames.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .automatic)
-
-                // move the gallery name to deleted
                 deletedGalleries.append(galleryName)
             } else if indexPath.section == 1 {
                 deletedGalleries.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
             }
             tableView.reloadData()
         } else if editingStyle == .insert {
@@ -141,8 +137,6 @@ class ImageGalleryTableViewController: UITableViewController {
             let deletedGallery = self.deletedGalleries[indexPath.row]
             
             self.deletedGalleries.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-
             self.galleryNames.append(deletedGallery)
             
             tableView.reloadData()
@@ -155,7 +149,7 @@ class ImageGalleryTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let cell = sender as? ImageGalleryTableViewCell, let indexPath = tableView.indexPath(for: cell), let rowName = cell.textLabel?.text, let destinationGallery = models[rowName] {
+        if let cell = sender as? ImageGalleryTableViewCell, let rowName = cell.textLabel?.text, let destinationGallery = models[rowName] {
             if segue.identifier == "Choose Gallery" {
                 if let destination = segue.destination as? ImageGalleryCollectionViewController {
                     // set the image gallery to be the appropiate array of Image instances.
@@ -167,6 +161,11 @@ class ImageGalleryTableViewController: UITableViewController {
         }
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+    }
+    
+    //
+    private func updateViewFromModel() {
+        
     }
     
 }
