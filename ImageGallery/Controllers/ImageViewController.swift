@@ -9,7 +9,7 @@ import UIKit
 
 class ImageViewController: UIViewController {
     
-    var image: Image!
+    var image: ImageGalleryItem!
     
     
     @IBOutlet weak var imageView: UIImageView!

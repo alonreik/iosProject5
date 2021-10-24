@@ -10,29 +10,28 @@ import UIKit
 // todo - what do we do when we try to fetch an image but fail?
 
 class ImageGalleryTableViewController: UITableViewController {
-
+    
     // the model (for this MVC):
     var galleryNames = ["NBA", "Euroleague"]
-    
     var deletedGalleries: [String] = []
     
+    let URLs = ["https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg", "https://static01.nyt.com/images/2020/06/12/sports/12nba-return/merlin_168451203_493eb598-93f6-47dc-9140-c8bd94b620da-superJumbo.jpg?quality=90&auto=webp", "https://swordstoday.ie/wp-content/uploads/2021/03/getobject-47-e1575408347332-770x462.jpeg",
+    "https://static.timesofisrael.com/www/uploads/2019/07/AP_18337090034812-e1563112655347.jpg",
+    "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/996.png&w=350&h=254",
+    "https://basket.co.il/pics/2019/2020/14ob21.jpg"
+    ]
+    
+    
     // todo - design wise, is it reasonable to include the model of another MVC (the Image class) in the controller of this MVC?.
-    private let models = [
-                [   // array of image instances (images of NBA players)
-                    Image(url: "https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg"),
-                    Image(url: "https://static01.nyt.com/images/2020/06/12/sports/12nba-return/merlin_168451203_493eb598-93f6-47dc-9140-c8bd94b620da-superJumbo.jpg?quality=90&auto=webp"),
-                    Image(url: "https://swordstoday.ie/wp-content/uploads/2021/03/getobject-47-e1575408347332-770x462.jpeg"),
-                ],
-                [   // array of image instances (images of euroleague players)
-                    Image(url: "https://static.timesofisrael.com/www/uploads/2019/07/AP_18337090034812-e1563112655347.jpg"),
-                    Image(url: "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/996.png&w=350&h=254"),
-                    Image(url: "https://basket.co.il/pics/2019/2020/14ob21.jpg"),
-                ]
+    lazy private var models = [
+                // array of image instances (images of NBA players)
+                "NBA": [ImageGalleryItem(url: self.URLs[0]), ImageGalleryItem(url: self.URLs[1]), ImageGalleryItem(url: self.URLs[2])],
+                // array of image instances (images of euroleague players)
+                "Euroleague": [ImageGalleryItem(url: self.URLs[3]), ImageGalleryItem(url: self.URLs[4]),ImageGalleryItem(url: self.URLs[5])]
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -59,7 +58,7 @@ class ImageGalleryTableViewController: UITableViewController {
     // How many rows per section in the tableview?
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return galleryNames.count
+            return self.galleryNames.count
         } else { // if section == 1
             return deletedGalleries.count
         }
@@ -67,7 +66,6 @@ class ImageGalleryTableViewController: UITableViewController {
 
     // What do display in each row\cell of the table view?
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "GalleryCell", for: indexPath)
         if let galleryTableCell = cell as? ImageGalleryTableViewCell {
             galleryTableCell.textLabel?.text = (indexPath.section == 0) ? galleryNames[indexPath.row] : deletedGalleries[indexPath.row]
@@ -157,13 +155,13 @@ class ImageGalleryTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell){
+        if let cell = sender as? ImageGalleryTableViewCell, let indexPath = tableView.indexPath(for: cell), let rowName = cell.textLabel?.text, let destinationGallery = models[rowName] {
             if segue.identifier == "Choose Gallery" {
                 if let destination = segue.destination as? ImageGalleryCollectionViewController {
                     // set the image gallery to be the appropiate array of Image instances.
-                    destination.imageGallery = models[indexPath.row]
+                    destination.imageGallery = destinationGallery
                     // set the title of the segue.destination to be name of the picked gallery.
-                    destination.title = galleryNames[indexPath.row]
+                    destination.title = rowName
                 }
             }
         }

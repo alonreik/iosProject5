@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Image
+class ImageGalleryItem
 {
     var url: URL?
     var aspectRatio: Double = 0

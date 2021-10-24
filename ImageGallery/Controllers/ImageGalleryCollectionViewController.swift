@@ -23,7 +23,7 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
     // The Model (for this MVC): An array of Image instances (Image is a custom class for this ex).
     // The array is set before performing segues from the masterview of the splitView to the detail
     // (which is the view that this controller controls).
-    var imageGallery: [Image] = []
+    var imageGallery: [ImageGalleryItem] = []
     
     /* ---------
      Properties

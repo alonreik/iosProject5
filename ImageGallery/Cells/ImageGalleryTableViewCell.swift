@@ -14,7 +14,7 @@ class ImageGalleryTableViewCell: UITableViewCell, UITextFieldDelegate {
             galleryName.delegate = self
         }
     }
-    
+        
     var resignationHandler: (() -> Void)?
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
