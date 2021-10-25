@@ -24,14 +24,6 @@ class ImageGalleryTableViewController: UITableViewController {
     "https://basket.co.il/pics/2019/2020/14ob21.jpg"
     ]
     
-    private let moreURLS = [
-        "https://picsum.photos/id/237/200/300",
-        "https://i.picsum.photos/id/1012/3973/2639.jpg?hmac=s2eybz51lnKy2ZHkE2wsgc6S81fVD1W2NKYOSh8bzDc",
-        "https://i.picsum.photos/id/1011/5472/3648.jpg?hmac=Koo9845x2akkVzVFX3xxAc9BCkeGYA9VRVfLE4f0Zzk",
-        "https://i.picsum.photos/id/1024/1920/1280.jpg?hmac=-PIpG7j_fRwN8Qtfnsc3M8-kC3yb0XYOBfVzlPSuVII",
-        "https://i.picsum.photos/id/1001/5616/3744.jpg?hmac=38lkvX7tHXmlNbI0HzZbtkJ6_wpWyqvkX4Ty6vYElZE",
-    ]
-    
     lazy private var models = [
                 // array of image instances (images of NBA players)
                 "NBA": [ImageGalleryItem(url: self.URLs[0]), ImageGalleryItem(url: self.URLs[1]), ImageGalleryItem(url: self.URLs[2])],

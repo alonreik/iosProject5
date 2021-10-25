@@ -29,6 +29,14 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
      Properties
     ----------- */
     
+    private var moreURLS = [
+        "https://picsum.photos/id/237/200/300",
+        "https://i.picsum.photos/id/1012/3973/2639.jpg?hmac=s2eybz51lnKy2ZHkE2wsgc6S81fVD1W2NKYOSh8bzDc",
+        "https://i.picsum.photos/id/1011/5472/3648.jpg?hmac=Koo9845x2akkVzVFX3xxAc9BCkeGYA9VRVfLE4f0Zzk",
+        "https://i.picsum.photos/id/1024/1920/1280.jpg?hmac=-PIpG7j_fRwN8Qtfnsc3M8-kC3yb0XYOBfVzlPSuVII",
+        "https://i.picsum.photos/id/1001/5616/3744.jpg?hmac=38lkvX7tHXmlNbI0HzZbtkJ6_wpWyqvkX4Ty6vYElZE",
+    ]
+    
     //
     private var maximalWidth: CGFloat {
         // todo - arbitrary maximal width
@@ -46,6 +54,14 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
     // The collectionView's flow layout. This var is used to trigger a layout update
     private var flowLayout: UICollectionViewFlowLayout? {
         return collectionView.collectionViewLayout as? UICollectionViewFlowLayout
+    }
+    
+    @IBAction func addRandomImage(_ sender: Any) {
+        guard let newImage = moreURLS.popLast() else {
+            return
+        }
+        imageGallery.append(ImageGalleryItem(url: newImage));
+        collectionView.reloadData()
     }
     
     /* -------------------------------------------------

@@ -116,7 +116,13 @@
                             <outlet property="delegate" destination="RgE-UP-OMv" id="9lw-jg-tc4"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="geX-RN-ejV"/>
+                    <navigationItem key="navigationItem" id="geX-RN-ejV">
+                        <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="MRa-Rt-wKL">
+                            <connections>
+                                <action selector="addRandomImage:" destination="RgE-UP-OMv" id="ErX-sG-feG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pZW-Gb-fh5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
