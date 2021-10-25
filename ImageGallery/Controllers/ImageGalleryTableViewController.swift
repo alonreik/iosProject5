@@ -9,7 +9,7 @@ import UIKit
 
 // todo - what do we do when we try to fetch an image but fail?
 
-class ImageGalleryTableViewController: UITableViewController {
+class ImageGalleryTableViewController: UITableViewController, UISplitViewControllerDelegate {
     
     // the model (for this MVC):
     var galleryNames = ["NBA", "Euroleague"]
@@ -21,6 +21,8 @@ class ImageGalleryTableViewController: UITableViewController {
     "https://basket.co.il/pics/2019/2020/14ob21.jpg"
     ]
     
+    // A reference to the last ConcentrationViewController the app segued to (initiated to nil).
+    private var lastSeguedToConcentartionViewController: ImageGalleryCollectionViewCell?
     
     // todo - design wise, is it reasonable to include the model of another MVC (the Image class) in the controller of this MVC?.
     lazy private var models = [

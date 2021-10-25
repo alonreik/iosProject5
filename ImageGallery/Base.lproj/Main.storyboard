@@ -3,7 +3,6 @@
     <device id="ipad12_9" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -45,35 +44,6 @@
             </objects>
             <point key="canvasLocation" x="-465" y="87"/>
         </scene>
-        <!--Image View Controller-->
-        <scene sceneID="Zyc-HZ-SsP">
-            <objects>
-                <viewController id="6FM-op-TVt" customClass="ImageViewController" customModule="ImageGallery" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="bZH-z4-TaB">
-                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zLf-w8-gdy">
-                                <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
-                            </imageView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="3eW-V4-9G1"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="zLf-w8-gdy" firstAttribute="bottom" secondItem="bZH-z4-TaB" secondAttribute="bottom" id="GPL-V5-ox1"/>
-                            <constraint firstItem="zLf-w8-gdy" firstAttribute="trailing" secondItem="bZH-z4-TaB" secondAttribute="trailing" id="MOk-7r-0sD"/>
-                            <constraint firstItem="zLf-w8-gdy" firstAttribute="leading" secondItem="bZH-z4-TaB" secondAttribute="leading" id="cg8-we-m1B"/>
-                            <constraint firstItem="zLf-w8-gdy" firstAttribute="top" secondItem="bZH-z4-TaB" secondAttribute="top" id="fXO-Ko-XcE"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="imageView" destination="zLf-w8-gdy" id="zLL-jc-fO8"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Nof-Ie-FVV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-336.01756954612006" y="1178.90625"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ra6-9u-auT">
             <objects>
@@ -101,7 +71,7 @@
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="buT-OA-a6f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1843" y="395"/>
+            <point key="canvasLocation" x="-2096" y="395"/>
         </scene>
         <!--Image Gallery Collection View Controller-->
         <scene sceneID="VUw-ui-gC7">
@@ -160,7 +130,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="3Mq-nQ-W94"/>
+        <segue reference="6cF-nc-zbA"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
