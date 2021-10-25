@@ -9,11 +9,14 @@ import UIKit
 
 // todo - what do we do when we try to fetch an image but fail?
 
-class ImageGalleryTableViewController: UITableViewController, UISplitViewControllerDelegate {
+class ImageGalleryTableViewController: UITableViewController {
     
     // the model (for this MVC):
     var galleryNames = ["NBA", "Euroleague"]
     var deletedGalleries: [String] = []
+    
+    var moreGalleryName = ["G League", "La Liga" ,"French League", "Winner League"]
+    
     
     private let URLs = ["https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg", "https://static01.nyt.com/images/2020/06/12/sports/12nba-return/merlin_168451203_493eb598-93f6-47dc-9140-c8bd94b620da-superJumbo.jpg?quality=90&auto=webp", "https://swordstoday.ie/wp-content/uploads/2021/03/getobject-47-e1575408347332-770x462.jpeg",
     "https://static.timesofisrael.com/www/uploads/2019/07/AP_18337090034812-e1563112655347.jpg",
@@ -21,10 +24,14 @@ class ImageGalleryTableViewController: UITableViewController, UISplitViewControl
     "https://basket.co.il/pics/2019/2020/14ob21.jpg"
     ]
     
-    // A reference to the last ConcentrationViewController the app segued to (initiated to nil).
-    private var lastSeguedToConcentartionViewController: ImageGalleryCollectionViewCell?
+    private let moreURLS = [
+        "https://picsum.photos/id/237/200/300",
+        "https://i.picsum.photos/id/1012/3973/2639.jpg?hmac=s2eybz51lnKy2ZHkE2wsgc6S81fVD1W2NKYOSh8bzDc",
+        "https://i.picsum.photos/id/1011/5472/3648.jpg?hmac=Koo9845x2akkVzVFX3xxAc9BCkeGYA9VRVfLE4f0Zzk",
+        "https://i.picsum.photos/id/1024/1920/1280.jpg?hmac=-PIpG7j_fRwN8Qtfnsc3M8-kC3yb0XYOBfVzlPSuVII",
+        "https://i.picsum.photos/id/1001/5616/3744.jpg?hmac=38lkvX7tHXmlNbI0HzZbtkJ6_wpWyqvkX4Ty6vYElZE",
+    ]
     
-    // todo - design wise, is it reasonable to include the model of another MVC (the Image class) in the controller of this MVC?.
     lazy private var models = [
                 // array of image instances (images of NBA players)
                 "NBA": [ImageGalleryItem(url: self.URLs[0]), ImageGalleryItem(url: self.URLs[1]), ImageGalleryItem(url: self.URLs[2])],
@@ -110,10 +117,10 @@ class ImageGalleryTableViewController: UITableViewController, UISplitViewControl
             } else {
                 deletedGalleries.remove(at: indexPath.row)
             }
-            tableView.reloadData()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
+        tableView.reloadData()
     }
     
 
@@ -139,10 +146,10 @@ class ImageGalleryTableViewController: UITableViewController, UISplitViewControl
         var actions: [UIContextualAction] = []
         let recoverAction = UIContextualAction(style: .normal, title: "Undelete") { (action, view, _) in
             let deletedGallery = self.deletedGalleries[indexPath.row]
-            
+
             self.deletedGalleries.remove(at: indexPath.row)
             self.galleryNames.append(deletedGallery)
-            
+
             tableView.reloadData()
             }
         actions.append(recoverAction)
@@ -165,5 +172,15 @@ class ImageGalleryTableViewController: UITableViewController, UISplitViewControl
         }
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+    }
+    
+    
+    @IBAction func addGallery(_ sender: Any) {
+        guard let galleryName = self.moreGalleryName.popLast() else {
+            print("out of gallery names")
+            return
+        }
+        galleryNames.append(galleryName)
+        tableView.reloadData()
     }
 }

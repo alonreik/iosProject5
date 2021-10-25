@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ecR-nY-S3k">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="827-we-GJ7">
     <device id="ipad12_9" orientation="landscape" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
@@ -13,15 +13,15 @@
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="Vvg-z7-n8m" customClass="ImageGalleryTableViewController" customModule="ImageGallery" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="WOR-GQ-MaO">
-                        <rect key="frame" x="0.0" y="0.0" width="420" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GalleryCell" id="jl2-fc-oe5" customClass="ImageGalleryTableViewCell" customModule="ImageGallery" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="420" height="51.5"/>
+                                <rect key="frame" x="0.0" y="28" width="1366" height="51.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jl2-fc-oe5" id="06S-3m-EAo" customClass="UITextField">
-                                    <rect key="frame" x="100" y="0.0" width="320" height="51.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1366" height="51.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <accessibility key="accessibilityConfiguration">
@@ -29,7 +29,7 @@
                                 </accessibility>
                                 <connections>
                                     <outlet property="galleryName" destination="06S-3m-EAo" id="C53-YZ-WQW"/>
-                                    <segue destination="RgE-UP-OMv" kind="showDetail" identifier="Choose Gallery" trigger="accessoryAction" id="3Mq-nQ-W94"/>
+                                    <segue destination="RgE-UP-OMv" kind="show" identifier="Choose Gallery" trigger="accessoryAction" id="3Mq-nQ-W94"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -38,7 +38,13 @@
                             <outlet property="delegate" destination="Vvg-z7-n8m" id="FcK-V2-r9i"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Galleries Gallery" id="gub-zE-f9d"/>
+                    <navigationItem key="navigationItem" title="Galleries Gallery" id="gub-zE-f9d">
+                        <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="MVO-5T-fc7">
+                            <connections>
+                                <action selector="addGallery:" destination="Vvg-z7-n8m" id="bXg-Mb-yje"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rGT-Bq-ogx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -49,7 +55,7 @@
             <objects>
                 <navigationController id="827-we-GJ7" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="G95-2r-JEM">
-                        <rect key="frame" x="0.0" y="0.0" width="420" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="50"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -60,25 +66,12 @@
             </objects>
             <point key="canvasLocation" x="-1151" y="87"/>
         </scene>
-        <!--Split View Controller-->
-        <scene sceneID="DT0-vj-UZz">
-            <objects>
-                <splitViewController allowDoubleColumnStyle="YES" id="ecR-nY-S3k" sceneMemberID="viewController">
-                    <connections>
-                        <segue destination="827-we-GJ7" kind="relationship" relationship="masterViewController" id="ZxP-9A-fWV"/>
-                        <segue destination="RgE-UP-OMv" kind="relationship" relationship="detailViewController" id="6cF-nc-zbA"/>
-                    </connections>
-                </splitViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="buT-OA-a6f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2096" y="395"/>
-        </scene>
         <!--Image Gallery Collection View Controller-->
         <scene sceneID="VUw-ui-gC7">
             <objects>
                 <collectionViewController id="RgE-UP-OMv" customClass="ImageGalleryCollectionViewController" customModule="ImageGallery" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Y4a-p4-guS">
-                        <rect key="frame" x="0.0" y="0.0" width="1045.5" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Owq-sR-soL">
@@ -123,16 +116,15 @@
                             <outlet property="delegate" destination="RgE-UP-OMv" id="9lw-jg-tc4"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" id="geX-RN-ejV"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pZW-Gb-fh5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1178" y="1196"/>
+            <point key="canvasLocation" x="-465" y="1177"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="6cF-nc-zbA"/>
-    </inferredMetricsTieBreakers>
     <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
