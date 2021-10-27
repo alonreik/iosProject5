@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GalleryCell" id="jl2-fc-oe5" customClass="ImageGalleryTableViewCell" customModule="ImageGallery" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GalleryCell" id="jl2-fc-oe5">
                                 <rect key="frame" x="0.0" y="28" width="1366" height="51.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jl2-fc-oe5" id="06S-3m-EAo" customClass="UITextField">
@@ -28,7 +28,6 @@
                                     <accessibilityTraits key="traits" button="YES"/>
                                 </accessibility>
                                 <connections>
-                                    <outlet property="galleryName" destination="06S-3m-EAo" id="C53-YZ-WQW"/>
                                     <segue destination="RgE-UP-OMv" kind="show" identifier="Choose Gallery" trigger="accessoryAction" id="3Mq-nQ-W94"/>
                                 </connections>
                             </tableViewCell>

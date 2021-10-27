@@ -1,10 +1,3 @@
-//
-//  ImageGalleryCollectionViewCell.swift
-//  ImageGallery
-//
-//  Created by Alon Reik on 08/04/2021.
-//
-
 import UIKit
 
 class ImageGalleryCollectionViewCell: UICollectionViewCell {

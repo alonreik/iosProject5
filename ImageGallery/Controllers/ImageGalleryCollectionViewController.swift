@@ -1,33 +1,13 @@
-//
-//  ViewController.swift
-//  ImageGallery
-//
-//  Created by Alon Reik on 07/04/2021.
-//
-
 import UIKit
 
-// todo - notice that estimated size in collection view is none
-
-/// UICollectionViewController implements the UICollectionViewDelegate & UICollectionViewDataSource protocols.
-// This controller is controling a view that is embedded in a split view (as the detail).
 class ImageGalleryCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    /* ---------
-     Constants
-    ----------- */
+    /* Class Variables */
     
-    // todo
     private let reusableCellIDForImages = "ImageCell"
     
-    // The Model (for this MVC): An array of Image instances (Image is a custom class for this ex).
-    // The array is set before performing segues from the masterview of the splitView to the detail
-    // (which is the view that this controller controls).
+    // The Model (for this MVC): An array of Image instances.
     var imageGallery: [ImageGalleryItem] = []
-    
-    /* ---------
-     Properties
-    ----------- */
     
     private var moreURLS = [
         "https://picsum.photos/id/237/200/300",
@@ -37,24 +17,29 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
         "https://i.picsum.photos/id/1001/5616/3744.jpg?hmac=38lkvX7tHXmlNbI0HzZbtkJ6_wpWyqvkX4Ty6vYElZE",
     ]
     
-    //
+    // Arbitrary Maximal Width
     private var maximalWidth: CGFloat {
-        // todo - arbitrary maximal width
         return collectionView.frame.size.width - 10
     }
-    //
+    
+    // Arbitrary minimal Width
     private var minimalWidth: CGFloat {
-        // todo - arbitrary minimal width
         return collectionView.frame.size.width / 10
     }
     
-    //
     private lazy var cellWidth: CGFloat = 100.0
     
     // The collectionView's flow layout. This var is used to trigger a layout update
     private var flowLayout: UICollectionViewFlowLayout? {
         return collectionView.collectionViewLayout as? UICollectionViewFlowLayout
     }
+    
+    /* Class Methods */
+    
+    
+    /* -------------------
+     Functions for Buttons
+     ---------------------*/
     
     @IBAction func addRandomImage(_ sender: Any) {
         guard let newImage = moreURLS.popLast() else {
@@ -66,9 +51,9 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
         collectionView.insertItems(at: [IndexPath(item: newImageItemIndex, section: 0)])
     }
     
-    /* -------------------------------------------------
-     Methods for the UICollectionViewDataSource Protocol
-    ---------------------------------------------------- */
+    /* ------------------------------------
+        UICollectionViewDataSource Methods
+     --------------------------------------- */
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Get the cell at the given indexPath
@@ -114,7 +99,7 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
     }
     
     /* -----------------------------------
-     Overriden methods for ViewControllers
+     ViewControllers Life Cycle Methods
     -------------------------------------- */
 
     override func viewDidLoad() {
@@ -129,7 +114,6 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
      Gestures Handlers
     ----------------- */
     
-    // This function is called every time a user pinches the screen
     @objc private func pinchHandler(recognizer: UIPinchGestureRecognizer) {
         switch recognizer.state {
         case .changed, .ended:

@@ -1,30 +1,28 @@
 import UIKit
 
-// todo - what do we do when we try to fetch an image but fail?
-
 class ImageGalleryTableViewController: UITableViewController {
     
-    // the model (for this MVC):
+    /* Class Variables */
+    
     var galleryNames = ["NBA", "Euroleague"]
     var deletedGalleries: [String] = []
     var moreGalleryName = ["G League", "La Liga" ,"French League", "Winner League"]
-    
     private let URLs = ["https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg", "https://static01.nyt.com/images/2020/06/12/sports/12nba-return/merlin_168451203_493eb598-93f6-47dc-9140-c8bd94b620da-superJumbo.jpg?quality=90&auto=webp", "https://swordstoday.ie/wp-content/uploads/2021/03/getobject-47-e1575408347332-770x462.jpeg",
         "https://static.timesofisrael.com/www/uploads/2019/07/AP_18337090034812-e1563112655347.jpg",
         "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/996.png&w=350&h=254",
         "https://basket.co.il/pics/2019/2020/14ob21.jpg",
         "https://external-preview.redd.it/WRyCAB2n7HQQURRTNIc6OkC58swUT1CxbIYhBh900DQ.jpg?auto=webp&s=57f10a7cbba40c7758d9b7e1576a3ce98122d623"
     ]
-    
-    lazy private var models = [
-        "NBA": [ImageGalleryItem(url: self.URLs[0]), ImageGalleryItem(url: self.URLs[1]), ImageGalleryItem(url: self.URLs[2]), ImageGalleryItem(url: self.URLs[6])],
-        "Euroleague": [ImageGalleryItem(url: self.URLs[3]), ImageGalleryItem(url: self.URLs[4]),ImageGalleryItem(url: self.URLs[5])]
+    lazy private var collectionViewModels = [
+        "Euroleague": [ImageGalleryItem(url: self.URLs[3]), ImageGalleryItem(url: self.URLs[4]),ImageGalleryItem(url: self.URLs[5])],
+        "NBA": [ImageGalleryItem(url: self.URLs[0]),ImageGalleryItem(url: self.URLs[1]), ImageGalleryItem(url: self.URLs[2]), ImageGalleryItem(url: self.URLs[6])]
     ]
 
-    
+    /* Class Methods */
+
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let cell = sender as? ImageGalleryTableViewCell, let rowName = cell.textLabel?.text, let destinationGallery = models[rowName] {
+        if let cell = sender as? UITableViewCell, let rowName = cell.textLabel?.text, let destinationGallery = collectionViewModels[rowName] {
             if segue.identifier == "Choose Gallery" {
                 if let destination = segue.destination as? ImageGalleryCollectionViewController {
                     // set the image gallery to be the appropiate array of Image instances.
@@ -46,6 +44,7 @@ class ImageGalleryTableViewController: UITableViewController {
             return
         }
         galleryNames.append(galleryName)
+        collectionViewModels[galleryName] = []
         tableView.performBatchUpdates({
             if (galleryNames.count == 1){
                 tableView.insertSections([0], with: .automatic)
@@ -81,12 +80,8 @@ class ImageGalleryTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GalleryCell", for: indexPath)
-        if let galleryTableCell = cell as? ImageGalleryTableViewCell {
-            galleryTableCell.textLabel?.text = (galleryNames.count > 0 && indexPath.section == 0) ? galleryNames[indexPath.row] : deletedGalleries[indexPath.row]
-            return galleryTableCell
-        } else { //if the downcasting failed, returns a generic collection view cell.
-            return cell
-        }
+        cell.textLabel?.text = (galleryNames.count > 0 && indexPath.section == 0) ? galleryNames[indexPath.row] : deletedGalleries[indexPath.row]
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -145,7 +140,8 @@ class ImageGalleryTableViewController: UITableViewController {
             tableView.performBatchUpdates({
                 if (self.galleryNames.count == 1) {
                     tableView.insertSections([0], with: .automatic)
-                } else if (self.deletedGalleries.count == 0) {
+                }
+                if (self.deletedGalleries.count == 0) {
                     tableView.deleteSections([self.galleryNames.isEmpty ? 0 : 1], with: .automatic)
                 }
                 tableView.deleteRows(at: [indexPath], with: .automatic)

@@ -1,10 +1,3 @@
-//
-//  Image.swift
-//  ImageGallery
-//
-//  Created by Alon Reik on 11/04/2021.
-//
-
 import Foundation
 
 class ImageGalleryItem
