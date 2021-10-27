@@ -111,16 +111,14 @@ class ImageGalleryTableViewController: UITableViewController {
                     if (deletedGalleries.count == 1) {
                         // If we need to create the second section:
                         tableView.insertSections([1], with: .automatic)
-                        tableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
                         tableView.deleteRows(at: [indexPath], with: .automatic)
                     } else if (galleryNames.isEmpty) {
                         // If we need to delete the first section
                         tableView.deleteSections([0], with: .automatic)
-                        tableView.insertRows(at: [IndexPath(row: deletedGalleries.count - 1, section: 0)], with: .automatic)
                     } else {
-                        tableView.insertRows(at: [IndexPath(row: deletedGalleries.count - 1, section: 1)], with: .automatic)
                         tableView.deleteRows(at: [indexPath], with: .automatic)
                     }
+                    tableView.insertRows(at: [IndexPath(row: deletedGalleries.count - 1, section: galleryNames.isEmpty ? 0 : 1)], with: .automatic)
                 }, completion: nil)
             } else {
                 tableView.performBatchUpdates({
@@ -201,6 +199,11 @@ class ImageGalleryTableViewController: UITableViewController {
             return
         }
         galleryNames.append(galleryName)
-        tableView.reloadData()
+        tableView.performBatchUpdates({
+            if (galleryNames.count == 1){
+                tableView.insertSections([0], with: .automatic)
+            }
+            tableView.insertRows(at: [IndexPath(row: galleryNames.count - 1, section: 0)], with: .automatic)
+        }, completion: nil)
     }
 }
