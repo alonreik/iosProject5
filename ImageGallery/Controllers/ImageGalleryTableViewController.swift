@@ -134,7 +134,6 @@ class ImageGalleryTableViewController: UITableViewController {
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
-//        tableView.reloadData()
     }
     
 
@@ -160,12 +159,19 @@ class ImageGalleryTableViewController: UITableViewController {
         var actions: [UIContextualAction] = []
         let recoverAction = UIContextualAction(style: .normal, title: "Undelete") { (action, view, _) in
             let deletedGallery = self.deletedGalleries[indexPath.row]
-
             self.deletedGalleries.remove(at: indexPath.row)
             self.galleryNames.append(deletedGallery)
+            tableView.performBatchUpdates({
+                if (self.galleryNames.count == 1) {
+                    tableView.insertSections([0], with: .automatic)
+                } else if (self.deletedGalleries.count == 0) {
+                    tableView.deleteSections([1], with: .automatic)
+                }
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                tableView.insertRows(at: [IndexPath(row: self.galleryNames.count - 1, section: 0)], with: .automatic)
+            }, completion: nil)
+        }
 
-            tableView.reloadData()
-            }
         actions.append(recoverAction)
         return UISwipeActionsConfiguration(actions: actions)
     }
