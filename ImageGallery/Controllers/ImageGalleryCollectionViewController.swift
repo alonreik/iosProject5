@@ -76,12 +76,11 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
         
         // Downcast the cell item to a derived class (derived from CollectionViewCell)
         if let imageCell = cell as? ImageGalleryCollectionViewCell {
-            
+            imageCell.toggleActivitySpinner()
             // get the URL (of an image) from the model
             if let url = imageGallery[indexPath.item].url {
                 // Get a global "background" queue/thread to perform non UI tasks (getting data from url):
                 DispatchQueue.global(qos: .userInitiated).async {
-                    imageCell.toggleActivitySpinner()
                     let urlContents = try? Data(contentsOf: url)
                     // Get the main queue to perform UI tasks (using activity spinner and setting an image):
                     DispatchQueue.main.async {

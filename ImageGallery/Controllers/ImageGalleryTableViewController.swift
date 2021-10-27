@@ -98,16 +98,38 @@ class ImageGalleryTableViewController: UITableViewController {
 //        // Return false if you do not want the specified item to be editable.
 //        return true
 //    }
-
+    
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if galleryNames.count > 0 && indexPath.section == 0 {
                 let galleryName = galleryNames[indexPath.row]
-                galleryNames.remove(at: indexPath.row)
-                deletedGalleries.append(galleryName)
+                tableView.performBatchUpdates({
+                    galleryNames.remove(at: indexPath.row)
+                    deletedGalleries.append(galleryName)
+                    if (deletedGalleries.count == 1) {
+                        // If we need to create the second section:
+                        tableView.insertSections([1], with: .automatic)
+                        tableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
+                        tableView.deleteRows(at: [indexPath], with: .automatic)
+                    } else if (galleryNames.isEmpty) {
+                        // If we need to delete the first section
+                        tableView.deleteSections([0], with: .automatic)
+                        tableView.insertRows(at: [IndexPath(row: deletedGalleries.count - 1, section: 0)], with: .automatic)
+                    } else {
+                        tableView.insertRows(at: [IndexPath(row: deletedGalleries.count - 1, section: 1)], with: .automatic)
+                        tableView.deleteRows(at: [indexPath], with: .automatic)
+                    }
+                }, completion: nil)
             } else {
-                deletedGalleries.remove(at: indexPath.row)
+                tableView.performBatchUpdates({
+                    deletedGalleries.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                    if (deletedGalleries.count == 0) {
+                        tableView.deleteSections([indexPath.section], with: .automatic)
+                    }
+                }, completion: nil)
             }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
