@@ -21,14 +21,15 @@ class ImageGalleryTableViewController: UITableViewController {
     private let URLs = ["https://media.bleacherreport.com/f_auto,w_800,h_533,q_auto,c_fill/br-img-images/003/872/788/hi-res-2c4869a446d305ffae628b510cb6131f_crop_north.jpg", "https://static01.nyt.com/images/2020/06/12/sports/12nba-return/merlin_168451203_493eb598-93f6-47dc-9140-c8bd94b620da-superJumbo.jpg?quality=90&auto=webp", "https://swordstoday.ie/wp-content/uploads/2021/03/getobject-47-e1575408347332-770x462.jpeg",
     "https://static.timesofisrael.com/www/uploads/2019/07/AP_18337090034812-e1563112655347.jpg",
     "https://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/996.png&w=350&h=254",
-    "https://basket.co.il/pics/2019/2020/14ob21.jpg"
+    "https://basket.co.il/pics/2019/2020/14ob21.jpg",
+    "https://external-preview.redd.it/WRyCAB2n7HQQURRTNIc6OkC58swUT1CxbIYhBh900DQ.jpg?auto=webp&s=57f10a7cbba40c7758d9b7e1576a3ce98122d623"
     ]
     
     lazy private var models = [
-                // array of image instances (images of NBA players)
-                "NBA": [ImageGalleryItem(url: self.URLs[0]), ImageGalleryItem(url: self.URLs[1]), ImageGalleryItem(url: self.URLs[2])],
-                // array of image instances (images of euroleague players)
-                "Euroleague": [ImageGalleryItem(url: self.URLs[3]), ImageGalleryItem(url: self.URLs[4]),ImageGalleryItem(url: self.URLs[5])]
+        // array of image instances (images of NBA players)
+        "NBA": [ImageGalleryItem(url: self.URLs[0]), ImageGalleryItem(url: self.URLs[1]), ImageGalleryItem(url: self.URLs[2]), ImageGalleryItem(url: self.URLs[6])],
+        // array of image instances (images of euroleague players)
+        "Euroleague": [ImageGalleryItem(url: self.URLs[3]), ImageGalleryItem(url: self.URLs[4]),ImageGalleryItem(url: self.URLs[5])]
     ]
     
     override func viewDidLoad() {
@@ -53,7 +54,6 @@ class ImageGalleryTableViewController: UITableViewController {
         } else {
             return 2
         }
-//        return 2
     }
     
     // How many rows per section in the tableview?
@@ -112,7 +112,7 @@ class ImageGalleryTableViewController: UITableViewController {
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
-        tableView.reloadData()
+//        tableView.reloadData()
     }
     
 
