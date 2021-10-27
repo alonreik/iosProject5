@@ -103,10 +103,13 @@ class ImageGalleryTableViewController: UITableViewController {
         if editingStyle == .delete {
             if galleryNames.count > 0 && indexPath.section == 0 {
                 let galleryName = galleryNames[indexPath.row]
+                galleryNames.remove(at: indexPath.row)
+                deletedGalleries.append(galleryName)
                 tableView.performBatchUpdates({
-                    galleryNames.remove(at: indexPath.row)
-                    deletedGalleries.append(galleryName)
-                    if (deletedGalleries.count == 1) {
+                    if (deletedGalleries.count == 1 && galleryNames.isEmpty) {
+                        tableView.reloadData()
+                        return
+                    } else if (deletedGalleries.count == 1) {
                         // If we need to create the second section:
                         tableView.insertSections([1], with: .automatic)
                     } else if (galleryNames.isEmpty) {
@@ -138,10 +141,12 @@ class ImageGalleryTableViewController: UITableViewController {
             self.deletedGalleries.remove(at: indexPath.row)
             self.galleryNames.append(deletedGallery)
             tableView.performBatchUpdates({
-                if (self.galleryNames.count == 1) {
+                if (self.galleryNames.count == 1 && self.deletedGalleries.isEmpty){
+                    tableView.reloadData()
+                    return
+                } else if (self.galleryNames.count == 1) {
                     tableView.insertSections([0], with: .automatic)
-                }
-                if (self.deletedGalleries.count == 0) {
+                } else if (self.deletedGalleries.isEmpty) {
                     tableView.deleteSections([self.galleryNames.isEmpty ? 0 : 1], with: .automatic)
                 }
                 tableView.deleteRows(at: [indexPath], with: .automatic)

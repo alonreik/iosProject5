@@ -45,17 +45,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9474E10727296421000372F7 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		949228FE2624363700D909DF /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				949228F626233E1A00D909DF /* ImageGalleryItem.swift */,
 				949228FB2624362C00D909DF /* ImageGalleryTableViewController.swift */,
 				94959E34261DEA6500C3C4C4 /* ImageGalleryCollectionViewController.swift */,
 			);
@@ -90,7 +82,7 @@
 		94959E2F261DEA6500C3C4C4 /* ImageGallery */ = {
 			isa = PBXGroup;
 			children = (
-				9474E10727296421000372F7 /* Models */,
+				949228F626233E1A00D909DF /* ImageGalleryItem.swift */,
 				94959E45261DEA7600C3C4C4 /* Supporting Files */,
 				9492290126243CCF00D909DF /* Cells */,
 				949228FE2624363700D909DF /* Controllers */,
