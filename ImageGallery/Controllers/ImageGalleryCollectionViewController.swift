@@ -1,46 +1,32 @@
-//
-//  ViewController.swift
-//  ImageGallery
-//
-//  Created by Alon Reik on 07/04/2021.
-//
-
 import UIKit
 
-// todo - notice that estimated size in collection view is none
-
-/// UICollectionViewController implements the UICollectionViewDelegate & UICollectionViewDataSource protocols.
-// This controller is controling a view that is embedded in a split view (as the detail).
 class ImageGalleryCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    /* ---------
-     Constants
-    ----------- */
+    /* Class Variables */
     
-    // todo
     private let reusableCellIDForImages = "ImageCell"
     
-    // The Model (for this MVC): An array of Image instances (Image is a custom class for this ex).
-    // The array is set before performing segues from the masterview of the splitView to the detail
-    // (which is the view that this controller controls).
+    // The Model (for this MVC): An array of Image instances.
     var imageGallery: [ImageGalleryItem] = []
     
-    /* ---------
-     Properties
-    ----------- */
+    private var moreURLS = [
+        "https://picsum.photos/id/237/200/300",
+        "https://i.picsum.photos/id/1012/3973/2639.jpg?hmac=s2eybz51lnKy2ZHkE2wsgc6S81fVD1W2NKYOSh8bzDc",
+        "https://i.picsum.photos/id/1011/5472/3648.jpg?hmac=Koo9845x2akkVzVFX3xxAc9BCkeGYA9VRVfLE4f0Zzk",
+        "https://i.picsum.photos/id/1024/1920/1280.jpg?hmac=-PIpG7j_fRwN8Qtfnsc3M8-kC3yb0XYOBfVzlPSuVII",
+        "https://i.picsum.photos/id/1001/5616/3744.jpg?hmac=38lkvX7tHXmlNbI0HzZbtkJ6_wpWyqvkX4Ty6vYElZE",
+    ]
     
-    //
+    // Arbitrary Maximal Width
     private var maximalWidth: CGFloat {
-        // todo - arbitrary maximal width
         return collectionView.frame.size.width - 10
     }
-    //
+    
+    // Arbitrary minimal Width
     private var minimalWidth: CGFloat {
-        // todo - arbitrary minimal width
         return collectionView.frame.size.width / 10
     }
     
-    //
     private lazy var cellWidth: CGFloat = 100.0
     
     // The collectionView's flow layout. This var is used to trigger a layout update
@@ -48,9 +34,26 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
         return collectionView.collectionViewLayout as? UICollectionViewFlowLayout
     }
     
-    /* -------------------------------------------------
-     Methods for the UICollectionViewDataSource Protocol
-    ---------------------------------------------------- */
+    /* Class Methods */
+    
+    
+    /* -------------------
+     Functions for Buttons
+     ---------------------*/
+    
+    @IBAction func addRandomImage(_ sender: Any) {
+        guard let newImage = moreURLS.popLast() else {
+            return
+        }
+        let newImageItem = ImageGalleryItem(url: newImage);
+        let newImageItemIndex = imageGallery.count;
+        imageGallery.append(newImageItem);
+        collectionView.insertItems(at: [IndexPath(item: newImageItemIndex, section: 0)])
+    }
+    
+    /* ------------------------------------
+        UICollectionViewDataSource Methods
+     --------------------------------------- */
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Get the cell at the given indexPath
@@ -58,17 +61,14 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
         
         // Downcast the cell item to a derived class (derived from CollectionViewCell)
         if let imageCell = cell as? ImageGalleryCollectionViewCell {
-            
+            imageCell.toggleActivitySpinner()
             // get the URL (of an image) from the model
             if let url = imageGallery[indexPath.item].url {
-                // todo - move the background assignment to the Image model. 
-                
                 // Get a global "background" queue/thread to perform non UI tasks (getting data from url):
                 DispatchQueue.global(qos: .userInitiated).async {
                     let urlContents = try? Data(contentsOf: url)
                     // Get the main queue to perform UI tasks (using activity spinner and setting an image):
                     DispatchQueue.main.async {
-                        imageCell.toggleActivitySpinner()
                         if let imageData = urlContents {
                             imageCell.imageView.image = UIImage(data: imageData) // update the view according to the model
                             guard let height = imageCell.imageView.image?.size.height, let width = imageCell.imageView.image?.size.width else {
@@ -99,7 +99,7 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
     }
     
     /* -----------------------------------
-     Overriden methods for ViewControllers
+     ViewControllers Life Cycle Methods
     -------------------------------------- */
 
     override func viewDidLoad() {
@@ -114,7 +114,6 @@ class ImageGalleryCollectionViewController: UICollectionViewController, UICollec
      Gestures Handlers
     ----------------- */
     
-    // This function is called every time a user pinches the screen
     @objc private func pinchHandler(recognizer: UIPinchGestureRecognizer) {
         switch recognizer.state {
         case .changed, .ended:
