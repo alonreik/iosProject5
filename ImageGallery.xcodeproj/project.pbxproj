@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9474E10C27296517000372F7 /* ImageGalleryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9474E10B27296517000372F7 /* ImageGalleryTableViewCell.swift */; };
 		949228F726233E1A00D909DF /* ImageGalleryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949228F626233E1A00D909DF /* ImageGalleryItem.swift */; };
 		949228FC2624362C00D909DF /* ImageGalleryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949228FB2624362C00D909DF /* ImageGalleryTableViewController.swift */; };
 		94959E31261DEA6500C3C4C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94959E30261DEA6500C3C4C4 /* AppDelegate.swift */; };
@@ -20,7 +19,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9474E10B27296517000372F7 /* ImageGalleryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageGalleryTableViewCell.swift; path = ../../../../../.Trash/ImageGalleryTableViewCell.swift; sourceTree = "<group>"; };
 		949228F626233E1A00D909DF /* ImageGalleryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryItem.swift; sourceTree = "<group>"; };
 		949228FB2624362C00D909DF /* ImageGalleryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryTableViewController.swift; sourceTree = "<group>"; };
 		94959E2D261DEA6500C3C4C4 /* ImageGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,7 +56,6 @@
 			isa = PBXGroup;
 			children = (
 				94959E4C261EDB8400C3C4C4 /* ImageGalleryCollectionViewCell.swift */,
-				9474E10B27296517000372F7 /* ImageGalleryTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -176,7 +173,6 @@
 				94959E35261DEA6500C3C4C4 /* ImageGalleryCollectionViewController.swift in Sources */,
 				949228F726233E1A00D909DF /* ImageGalleryItem.swift in Sources */,
 				949228FC2624362C00D909DF /* ImageGalleryTableViewController.swift in Sources */,
-				9474E10C27296517000372F7 /* ImageGalleryTableViewCell.swift in Sources */,
 				94959E4D261EDB8400C3C4C4 /* ImageGalleryCollectionViewCell.swift in Sources */,
 				94959E31261DEA6500C3C4C4 /* AppDelegate.swift in Sources */,
 				94959E33261DEA6500C3C4C4 /* SceneDelegate.swift in Sources */,

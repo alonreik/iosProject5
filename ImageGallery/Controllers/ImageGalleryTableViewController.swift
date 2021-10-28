@@ -60,7 +60,6 @@ class ImageGalleryTableViewController: UITableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // There are 2 sections: one for the gallery names, and one for the deleted galleries names.
-        // If no gallery is currently in the deleted galleries section, then only 1 section is displayed.
         if deletedGalleries.count == 0 && galleryNames.count == 0 {
             return 0
         } else if deletedGalleries.count == 0 || galleryNames.count == 0 {
@@ -71,9 +70,9 @@ class ImageGalleryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if galleryNames.count > 0 && section == 0 {
+        if !galleryNames.isEmpty && section == 0 {
             return self.galleryNames.count
-        } else { // if section == 1
+        } else {
             return deletedGalleries.count
         }
     }
@@ -105,8 +104,10 @@ class ImageGalleryTableViewController: UITableViewController {
                 let galleryName = galleryNames[indexPath.row]
                 galleryNames.remove(at: indexPath.row)
                 deletedGalleries.append(galleryName)
+                
                 tableView.performBatchUpdates({
                     if (deletedGalleries.count == 1 && galleryNames.isEmpty) {
+                        // If the only tableCell was moved between sections:
                         tableView.reloadData()
                         return
                     } else if (deletedGalleries.count == 1) {
@@ -132,7 +133,8 @@ class ImageGalleryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        if (galleryNames.count > 0 && indexPath.section == 0) {
+        if (!galleryNames.isEmpty && indexPath.section == 0) {
+            // Ignore leading swipes on the first section.
             return nil
         }
         var actions: [UIContextualAction] = []
@@ -142,6 +144,7 @@ class ImageGalleryTableViewController: UITableViewController {
             self.galleryNames.append(deletedGallery)
             tableView.performBatchUpdates({
                 if (self.galleryNames.count == 1 && self.deletedGalleries.isEmpty){
+                    // If the only tableCell was recovered:
                     tableView.reloadData()
                     return
                 } else if (self.galleryNames.count == 1) {
